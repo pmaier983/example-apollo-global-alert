@@ -1,18 +1,23 @@
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+
+import { useTimedBoolean } from '../hooks';
 
 import AlertContainer from './AlertContainer';
 
 const AlertWrapper = ({ children }) => {
-  const [state, setState] = useState(null);
+  const [state, setState] = useState('Hello');
+  const [visible, timedVisibility] = useTimedBoolean(3000, false);
 
-  // make a push notification with a close button
-  // one did nothing
+  const setAlert = (alertMessage) => {
+    setState(alertMessage);
+    timedVisibility({ guaranteeInitialState: true, guaranteeFinalState: false });
+  };
 
   return (
     <>
-      <AlertContainer>{state}</AlertContainer>
-      {children({ onAlert: setState })}
+      {visible && <AlertContainer>{state}</AlertContainer>}
+      {children({ onAlert: setAlert })}
     </>
   );
 };
