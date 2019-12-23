@@ -22,6 +22,28 @@ const GET_EMAIL = gql`
   }
 `;
 
+const BAD_EMAIL = gql`
+  query {
+    repository(owner:"111111", name:"Hello-World") {
+      issues(last:20, states:CLOSED) {
+        edges {
+          node {
+            title
+            url
+            labels(first:5) {
+              edges {
+                node {
+                  name
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
 const MY_REPOSITORY_LIST = gql`
   query {
     user(login: "pmaier983") {
@@ -38,4 +60,4 @@ const MY_REPOSITORY_LIST = gql`
   }
 `;
 
-export { GET_EMAIL, MY_REPOSITORY_LIST };
+export { GET_EMAIL, BAD_EMAIL, MY_REPOSITORY_LIST };
