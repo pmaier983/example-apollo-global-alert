@@ -1,14 +1,15 @@
 import { useState } from 'react';
 
 const useBoolean = (initialState = false) => {
-  const [boolean, setBoolean] = useState(initialState);
+  const [boolean, setBoolean] = useState(
+    typeof initialState === 'boolean' ? initialState : false,
+  );
 
   const toggleBoolean = (stateOverride) => {
-    setBoolean((stateOverride && typeof stateOverride === 'boolean') ? stateOverride
-      : !boolean);
+    setBoolean((typeof stateOverride === 'boolean') ? stateOverride : !boolean);
   };
 
-  return [boolean, toggleBoolean];
+  return [boolean, toggleBoolean, setBoolean];
 };
 
 export default useBoolean;
