@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash/fp';
 
 import { ApolloClient } from 'apollo-client';
 import { ApolloProvider } from 'react-apollo';
@@ -59,6 +58,14 @@ ApolloProviderClient.propTypes = {
   onAlert: PropTypes.func,
 };
 
-const deepEqualityCheck = (prevProps, nextProps) => _.isEqual(prevProps, nextProps);
+/*
+  So this is the most dangerous part of the solution
+  ApolloProviderClient will never re-render. If it is placed
+  at the highest level of your tree it shouldn’t be a problem, because
+  its children are the whole app and its onAlert prop-func will never change
+  This could cause issues if you use React.Portals on root... and
+  anything else complicated.
+*/
+const deepEqualityCheck = () => true;
 
 export default memo(ApolloProviderClient, deepEqualityCheck);
