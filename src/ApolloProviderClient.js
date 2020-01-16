@@ -11,6 +11,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 
 const GITHUB_BASE_URL = 'https://api.github.com/graphql';
 
+// eslint-disable-next-line no-unused-vars
 const ApolloProviderClient = ({ children, onAlert }) => {
   const httpLink = new HttpLink({
     uri: GITHUB_BASE_URL,
@@ -32,9 +33,9 @@ const ApolloProviderClient = ({ children, onAlert }) => {
       console.log(`[Network error]: ${networkError}`);
     }
 
-    if (graphQLErrors || networkError) {
-      onAlert('Something Went Wrong!');
-    }
+    // if (graphQLErrors || networkError) {
+    //   onAlert('Something Went Wrong!');
+    // }
   });
 
   const link = ApolloLink.from([errorLink, httpLink]);
