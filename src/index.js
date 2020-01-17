@@ -1,18 +1,16 @@
-/* eslint-disable no-console */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ApolloProviderClient from './ApolloProviderClient';
-import AlertWrapper from './alert/AlertWrapper';
+import { ApolloProvider } from 'react-apollo';
+import client from './ApolloProviderClient';
+import AlertContextProvider from './alert/AlertContextProvider';
 
 import App from './App';
 
 ReactDOM.render(
-  <AlertWrapper>
-    {({ onAlert }) => (
-      <ApolloProviderClient onAlert={onAlert}>
-        <App />
-      </ApolloProviderClient>
-    )}
-  </AlertWrapper>,
+  <AlertContextProvider>
+    <ApolloProvider client={client}>
+      <App />
+    </ApolloProvider>
+  </AlertContextProvider>,
   document.getElementById('root'),
 );

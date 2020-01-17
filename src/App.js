@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from './hooks';
 import { MY_REPOSITORY_LIST, GET_EMAIL, BAD_EMAIL } from './Queries';
 
 const BodyWidth = styled.div`
