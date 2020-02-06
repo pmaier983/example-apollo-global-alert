@@ -1,16 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { ApolloProvider } from 'react-apollo';
-import client from './ApolloProviderClient';
-import AlertContextProvider from './alert/AlertContextProvider';
 
+import AppWrapper from './AppWrapper';
 import App from './App';
 
 ReactDOM.render(
-  <AlertContextProvider>
-    <ApolloProvider client={client}>
-      <App />
-    </ApolloProvider>
-  </AlertContextProvider>,
+  <AppWrapper>
+    <App />
+  </AppWrapper>,
   document.getElementById('root'),
 );
