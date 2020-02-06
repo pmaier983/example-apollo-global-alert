@@ -1,20 +1,29 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-// import { useTimedBoolean } from '../hooks';
+
+import AlertContainer from './AlertContainer';
+
+import { useTimedBoolean } from '../hooks';
 
 export const AlertContext = React.createContext();
 
 const AlertContextProvider = ({ children }) => {
-  const [visible, setVisibility] = useState(false);
+  const [errorMessage, setErrorMessage] = useState();
+  const [visible, timedVisibility] = useTimedBoolean(6000, false);
 
-  const toggleVisibility = () => {
-    setVisibility(true);
+  const setAlert = (alertMessage) => {
+    setErrorMessage(alertMessage);
+    timedVisibility({ guaranteeInitialState: true, guaranteeFinalState: false });
   };
 
   return (
     <>
-      {visible && <div>ALEEEERRRRTTTTT</div>}
-      <AlertContext.Provider value={{ toggleTimedAlert: toggleVisibility }}>
+      {visible && (
+      <AlertContainer>
+        {errorMessage}
+      </AlertContainer>
+      )}
+      <AlertContext.Provider value={{ toggleTimedAlert: setAlert }}>
         {children}
       </AlertContext.Provider>
     </>
